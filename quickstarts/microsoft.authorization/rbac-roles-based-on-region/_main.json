@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "variables": {
+        "templatelink": "[concat('https://v2staticweb.blob.core.windows.net/files/rbactst/', concat(resourceGroup().location,'.json'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "linkedTemplate",
+            "properties": {
+                "mode": "incremental",
+                "templatelink": {
+                    "uri": "[variables('templatelink')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "uri": {
+            "value": "[variables('templatelink')]",
+            "type" : "string"
+        }
+    }
+}
